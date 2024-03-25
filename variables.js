@@ -1,4 +1,4 @@
-export const cardsItems = [
+export let cardsItems = [
   {
     number: 2,
     isOpen: false,
@@ -38,5 +38,10 @@ export const cardsItems = [
     id: 5,
   },
 ];
+
+
+
+
+
 
 export const $cards = document.querySelector(".cards");

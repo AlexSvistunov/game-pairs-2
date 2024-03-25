@@ -2,7 +2,6 @@ import { cardsItems  } from "./variables.js";
 import { $cards } from "./variables.js";
 
 
-
 const generateInitially = () => {
   cardsItems.forEach((cardItem, index) => {
     const $item = document.createElement("div");
@@ -23,6 +22,8 @@ const onClickFunction = ($item, cardItem) => {
       }
 
       const opened = iterateThrough().amountOfOpened;
+      const amountOfSuccess = iterateThrough().amountOfSuccess
+      console.log(amountOfSuccess);
       if (opened === 2) {
         const allOpened = iterateThrough().allOpened;
         if (allOpened[0].number === allOpened[1].number) {
@@ -32,7 +33,6 @@ const onClickFunction = ($item, cardItem) => {
           cardsItems[allOpened[1].id].isOpen = false;
           cardsItems[allOpened[1].id].isSuccess = true;
 
-          console.log(cardsItems);
 
           setTimeout(() => {
             iterateThrough();
@@ -41,19 +41,24 @@ const onClickFunction = ($item, cardItem) => {
           cardsItems[allOpened[0].id].isOpen = false;
           cardsItems[allOpened[1].id].isOpen = false;
 
-          console.log(cardsItems);
 
           setTimeout(() => {
             iterateThrough();
           }, 300);
         }
       }
+
+      if(amountOfSuccess.length === 6) {
+        alert('bro')
+      }
+
 }
 
 
 const iterateThrough = () => {
   let amountOfOpened = 0;
   let allOpened = [];
+  const amountOfSuccess = []
   cardsItems.forEach((cardItem, index) => {
     const isClass = cardItem.isOpen
       ? "card--opened"
@@ -73,12 +78,17 @@ const iterateThrough = () => {
       amountOfOpened++;
     }
 
+    if(cardItem.isSuccess) {
+      amountOfSuccess.push(index)
+    }
+
     cardItem.isOpen ? allOpened.push(cardItem) : null;
   });
 
   return {
     amountOfOpened,
     allOpened,
+    amountOfSuccess
   };
 };
 
